@@ -1,4 +1,271 @@
-<h1>
-  WTF WORLD
-
-</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mumasekai App Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: #5c6bc0;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7986cb;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #a777e3, #6e8efb);
+            border-radius: 25px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .app-icon i {
+            font-size: 60px;
+            color: white;
+        }
+        
+        .info-card {
+            background-color: #f5f7ff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-card h3 {
+            color: #5c6bc0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .info-item {
+            margin: 15px 0;
+            padding: 12px 0;
+            border-bottom: 1px dashed #d1d9ff;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #5c6bc0;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .value {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            word-break: break-all;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .launch-btn {
+            background: linear-gradient(to right, #5c6bc0, #3949ab);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 30px 0 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(92, 107, 192, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .launch-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(92, 107, 192, 0.5);
+        }
+        
+        .launch-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .launch-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .instructions {
+            background-color: #e8f5e9;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            text-align: left;
+        }
+        
+        .instructions h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .launch-btn {
+                width: 100%;
+                padding: 16px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Mumasekai App Launcher</h1>
+        <p class="subtitle">Direct access to your installed application</p>
+        
+        <div class="app-icon">
+            <i class="fas fa-gamepad"></i>
+        </div>
+        
+        <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Application Information</h3>
+            
+            <div class="info-item">
+                <span class="label">Package Name</span>
+                <div class="value">com.Shimofumi_ya.mumasekai</div>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Main Activity Class</span>
+                <div class="value">com.unity3d.player.UnityPlayerActivity</div>
+            </div>
+            
+            <div class="info-item">
+                <span class="label">Intent Action</span>
+                <div class="value">android.intent.action.MAIN</div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3><i class="fas fa-lightbulb"></i> How to use</h3>
+            <ul>
+                <li>Make sure the Mumasekai app is installed on your Android device</li>
+                <li>Click the "Launch Mumasekai" button below</li>
+                <li>If prompted, select "Open with Mumasekai"</li>
+                <li>If the app isn't installed, you'll be taken to the Play Store</li>
+            </ul>
+        </div>
+        
+        <a id="appLink" class="launch-btn">
+            <i class="fas fa-rocket"></i> Launch Mumasekai
+        </a>
+    </div>
+    
+    <footer>
+        <p>This page will attempt to open the installed Android app directly</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const appLink = document.getElementById('appLink');
+            
+            // Intent data
+            const packageName = 'com.Shimofumi_ya.mumasekai';
+            const className = 'com.unity3d.player.UnityPlayerActivity';
+            const action = 'android.intent.action.MAIN';
+            
+            // Play Store fallback URL
+            const playStoreUrl = `https://play.google.com/store/apps/details?id=${packageName}`;
+            
+            // Encode fallback URL for intent
+            const encodedFallback = encodeURIComponent(playStoreUrl);
+            
+            // Create intent URL
+            const intentUrl = `intent://#Intent;` +
+                `action=${action};` +
+                `package=${packageName};` +
+                `component=${packageName}/${className};` +
+                `S.browser_fallback_url=${encodedFallback};` +
+                `end`;
+            
+            // Set the href attribute
+            appLink.href = intentUrl;
+            
+            // Optional: Add click tracking
+            appLink.addEventListener('click', function() {
+                console.log('Attempting to launch Mumasekai app...');
+            });
+        });
+    </script>
+</body>
+</html>
