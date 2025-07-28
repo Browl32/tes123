@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Launch Game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Muma Sekai Launcher</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 50px; background: #222; color: #fff; }
+    button { font-size: 1.2rem; padding: 1em 2em; background: #4CAF50; border: none; border-radius: 8px; cursor: pointer; color: white; }
+    button:hover { background: #45a049; }
+  </style>
 </head>
 <body>
-  <h1>🎮 Muma Sekai Game Launcher</h1>
-  <p>Tap the button to launch the game on your Android device.</p>
+  <h1>🎮 Launch Muma Sekai</h1>
+  <p>Tap the button below to launch the game from your Android device.</p>
   <button onclick="launchGame()">Launch Game</button>
 
   <script>
     function launchGame() {
-      window.location.href = "mumasekai://launch";
+      // This scheme must match what your custom Android launcher app handles
+      window.location.href = 'mumasekai://launch';
     }
   </script>
 </body>
