@@ -198,30 +198,52 @@
             font-size: 1.8rem;
         }
         
-        .instructions {
-            background: rgba(40, 167, 69, 0.15);
-            border-left: 5px solid #28a745;
+        .fallback-section {
+            background: rgba(255, 193, 7, 0.15);
+            border-left: 5px solid #ffc107;
             padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
             text-align: left;
+            display: none;
         }
         
-        .instructions h3 {
-            color: #7eff9e;
+        .fallback-section h3 {
+            color: #ffe082;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             font-size: 1.3rem;
         }
         
-        .instructions ul {
-            padding-left: 25px;
-        }
-        
-        .instructions li {
+        .fallback-section p {
             margin: 12px 0;
             line-height: 1.6;
+        }
+        
+        .download-btn {
+            background: linear-gradient(to right, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(255, 87, 34, 0.4);
+        }
+        
+        .download-btn i {
+            margin-right: 10px;
         }
         
         .status {
@@ -287,27 +309,29 @@
             </div>
         </div>
         
-        <div class="instructions">
-            <h3><i class="fas fa-lightbulb"></i> How to Launch</h3>
-            <ul>
-                <li>Ensure the Mumasekai app is installed on your Android device</li>
-                <li>Click the "Launch Mumasekai" button below</li>
-                <li>If prompted, select "Open with Mumasekai"</li>
-                <li>The app will open directly if installed correctly</li>
-            </ul>
-        </div>
-        
         <button id="launchBtn" class="launch-btn">
             <i class="fas fa-rocket"></i> Launch Mumasekai
         </button>
         
         <div id="status" class="status"></div>
+        
+        <div id="fallbackSection" class="fallback-section">
+            <h3><i class="fas fa-exclamation-triangle"></i> App Not Found</h3>
+            <p>It seems the Mumasekai app is not installed on your device.</p>
+            <p>You can download the APK directly to install the app:</p>
+            
+            <button id="downloadBtn" class="download-btn">
+                <i class="fas fa-download"></i> Download APK
+            </button>
+        </div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const launchBtn = document.getElementById('launchBtn');
             const statusDiv = document.getElementById('status');
+            const fallbackSection = document.getElementById('fallbackSection');
+            const downloadBtn = document.getElementById('downloadBtn');
             
             // Intent data
             const packageName = 'com.Shimofumi_ya.mumasekai';
@@ -325,7 +349,7 @@
             launchBtn.addEventListener('click', function() {
                 statusDiv.textContent = "Launching Mumasekai...";
                 
-                // Try to open the app using an iframe method (works on most browsers)
+                // Try to open the app using an iframe method
                 const iframe = document.createElement('iframe');
                 iframe.style.display = 'none';
                 iframe.src = intentUrl;
@@ -334,11 +358,19 @@
                 // Set a timeout to check if the app was launched
                 setTimeout(function() {
                     // If we're still here after 2 seconds, the app probably didn't open
-                    statusDiv.textContent = "App launch failed. Please ensure Mumasekai is installed.";
+                    statusDiv.textContent = "App not found or launch failed.";
+                    fallbackSection.style.display = 'block';
                     
                     // Remove the iframe after use
                     document.body.removeChild(iframe);
                 }, 2000);
+            });
+            
+            // Set up download button
+            downloadBtn.addEventListener('click', function() {
+                statusDiv.textContent = "Redirecting to APK download...";
+                // Replace with your actual APK download URL
+                window.location.href = "https://example.com/path/to/mumasekai.apk";
             });
             
             // Additional method for some browsers
@@ -347,6 +379,7 @@
                 if (!isAndroid) {
                     statusDiv.textContent = "This launcher only works on Android devices.";
                     launchBtn.disabled = true;
+                    fallbackSection.style.display = 'block';
                 }
             };
         });
