@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mumasekai App Launcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,81 +14,124 @@
         }
         
         body {
-            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #333;
+            color: #e6e6ff;
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         .container {
-            background-color: white;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(101, 119, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             padding: 40px;
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin: 20px;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(101, 119, 255, 0.1) 0%, rgba(101, 119, 255, 0) 70%);
+            z-index: -1;
+        }
+        
+        header {
+            margin-bottom: 30px;
         }
         
         h1 {
-            color: #5c6bc0;
-            margin-bottom: 20px;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #6a93ff, #a153ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .subtitle {
-            color: #7986cb;
+            color: #aaccff;
+            font-size: 1.3rem;
             margin-bottom: 30px;
-            font-size: 1.2rem;
         }
         
         .app-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #a777e3, #6e8efb);
-            border-radius: 25px;
-            margin: 0 auto 25px;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            border-radius: 30px;
+            margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform: rotate(0);
+            transition: transform 0.5s ease;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .app-icon:hover {
+            transform: rotate(5deg);
         }
         
         .app-icon i {
-            font-size: 60px;
+            font-size: 70px;
             color: white;
+            z-index: 2;
         }
         
         .info-card {
-            background-color: #f5f7ff;
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 15px;
             padding: 25px;
             margin: 25px 0;
             text-align: left;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .info-card h3 {
-            color: #5c6bc0;
+            color: #aaccff;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
+            font-size: 1.4rem;
         }
         
         .info-card h3 i {
             margin-right: 10px;
+            color: #6a93ff;
         }
         
         .info-item {
             margin: 15px 0;
             padding: 12px 0;
-            border-bottom: 1px dashed #d1d9ff;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
         }
         
         .info-item:last-child {
@@ -96,79 +140,95 @@
         
         .label {
             font-weight: bold;
-            color: #5c6bc0;
+            color: #aaccff;
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
         }
         
         .value {
-            background-color: white;
-            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 15px;
             border-radius: 10px;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             word-break: break-all;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            color: #ffffff;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .launch-btn {
-            background: linear-gradient(to right, #5c6bc0, #3949ab);
+            background: linear-gradient(to right, #6a11cb, #2575fc);
             color: white;
             border: none;
-            padding: 18px 40px;
-            font-size: 1.2rem;
+            padding: 20px 50px;
+            font-size: 1.3rem;
             border-radius: 50px;
             cursor: pointer;
             margin: 30px 0 20px;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(92, 107, 192, 0.4);
+            box-shadow: 0 8px 25px rgba(38, 117, 252, 0.4);
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 8px 25px rgba(38, 117, 252, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 30px rgba(38, 117, 252, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 8px 25px rgba(38, 117, 252, 0.4); }
         }
         
         .launch-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(92, 107, 192, 0.5);
+            animation: none;
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(38, 117, 252, 0.6);
         }
         
         .launch-btn:active {
-            transform: translateY(1px);
+            transform: scale(0.98);
         }
         
         .launch-btn i {
-            margin-right: 10px;
-            font-size: 1.5rem;
+            margin-right: 15px;
+            font-size: 1.8rem;
         }
         
         .instructions {
-            background-color: #e8f5e9;
-            border-left: 5px solid #4caf50;
-            padding: 15px;
+            background: rgba(40, 167, 69, 0.15);
+            border-left: 5px solid #28a745;
+            padding: 20px;
             margin: 20px 0;
             border-radius: 0 10px 10px 0;
             text-align: left;
         }
         
         .instructions h3 {
-            color: #2e7d32;
+            color: #7eff9e;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
+            font-size: 1.3rem;
         }
         
         .instructions ul {
-            padding-left: 20px;
+            padding-left: 25px;
         }
         
         .instructions li {
-            margin: 10px 0;
+            margin: 12px 0;
+            line-height: 1.6;
         }
         
-        footer {
-            margin-top: 30px;
-            color: rgba(255, 255, 255, 0.8);
-            text-align: center;
-            font-size: 0.9rem;
+        .status {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: #aaccff;
+            min-height: 24px;
         }
         
         @media (max-width: 600px) {
@@ -177,21 +237,32 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .launch-btn {
                 width: 100%;
-                padding: 16px;
+                padding: 18px;
+                font-size: 1.2rem;
+            }
+            
+            .app-icon {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .app-icon i {
+                font-size: 50px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Mumasekai App Launcher</h1>
-        <p class="subtitle">Direct access to your installed application</p>
+        <header>
+            <h1>Mumasekai App Launcher</h1>
+            <p class="subtitle">Direct launch for your installed application</p>
+        </header>
         
         <div class="app-icon">
             <i class="fas fa-gamepad"></i>
@@ -217,54 +288,67 @@
         </div>
         
         <div class="instructions">
-            <h3><i class="fas fa-lightbulb"></i> How to use</h3>
+            <h3><i class="fas fa-lightbulb"></i> How to Launch</h3>
             <ul>
-                <li>Make sure the Mumasekai app is installed on your Android device</li>
+                <li>Ensure the Mumasekai app is installed on your Android device</li>
                 <li>Click the "Launch Mumasekai" button below</li>
                 <li>If prompted, select "Open with Mumasekai"</li>
-                <li>If the app isn't installed, you'll be taken to the Play Store</li>
+                <li>The app will open directly if installed correctly</li>
             </ul>
         </div>
         
-        <a id="appLink" class="launch-btn">
+        <button id="launchBtn" class="launch-btn">
             <i class="fas fa-rocket"></i> Launch Mumasekai
-        </a>
+        </button>
+        
+        <div id="status" class="status"></div>
     </div>
-    
-    <footer>
-        <p>This page will attempt to open the installed Android app directly</p>
-    </footer>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const appLink = document.getElementById('appLink');
+            const launchBtn = document.getElementById('launchBtn');
+            const statusDiv = document.getElementById('status');
             
             // Intent data
             const packageName = 'com.Shimofumi_ya.mumasekai';
             const className = 'com.unity3d.player.UnityPlayerActivity';
             const action = 'android.intent.action.MAIN';
             
-            // Play Store fallback URL
-            const playStoreUrl = `https://play.google.com/store/apps/details?id=${packageName}`;
-            
-            // Encode fallback URL for intent
-            const encodedFallback = encodeURIComponent(playStoreUrl);
-            
             // Create intent URL
-            const intentUrl = `intent://#Intent;` +
+            const intentUrl = `intent:#Intent;` +
                 `action=${action};` +
                 `package=${packageName};` +
                 `component=${packageName}/${className};` +
-                `S.browser_fallback_url=${encodedFallback};` +
                 `end`;
             
-            // Set the href attribute
-            appLink.href = intentUrl;
-            
-            // Optional: Add click tracking
-            appLink.addEventListener('click', function() {
-                console.log('Attempting to launch Mumasekai app...');
+            // Set up the launch button
+            launchBtn.addEventListener('click', function() {
+                statusDiv.textContent = "Launching Mumasekai...";
+                
+                // Try to open the app using an iframe method (works on most browsers)
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = intentUrl;
+                document.body.appendChild(iframe);
+                
+                // Set a timeout to check if the app was launched
+                setTimeout(function() {
+                    // If we're still here after 2 seconds, the app probably didn't open
+                    statusDiv.textContent = "App launch failed. Please ensure Mumasekai is installed.";
+                    
+                    // Remove the iframe after use
+                    document.body.removeChild(iframe);
+                }, 2000);
             });
+            
+            // Additional method for some browsers
+            window.onload = function() {
+                const isAndroid = /Android/i.test(navigator.userAgent);
+                if (!isAndroid) {
+                    statusDiv.textContent = "This launcher only works on Android devices.";
+                    launchBtn.disabled = true;
+                }
+            };
         });
     </script>
 </body>
